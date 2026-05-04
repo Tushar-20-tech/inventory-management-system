@@ -1,0 +1,487 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>User Profile</title>
+
+<style>
+
+/* PAGE BACKGROUND */
+
+body{
+
+margin:0;
+min-height:100vh;
+
+font-family:Segoe UI;
+
+background:linear-gradient(135deg,#1e3350,#2c4a73);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+animation:fadeIn 1s ease;
+
+}
+
+
+/* PAGE LOAD ANIMATION */
+
+@keyframes fadeIn{
+
+from{opacity:0;}
+to{opacity:1;}
+
+}
+
+
+/* MAIN PROFILE CARD */
+
+.card{
+
+width:820px;
+
+background:white;
+
+border-radius:24px;
+
+overflow:hidden;
+
+box-shadow:0px 25px 60px rgba(0,0,0,.35);
+
+animation:popUp .7s ease;
+
+}
+
+
+/* POPUP EFFECT */
+
+@keyframes popUp{
+
+from{
+transform:scale(.7);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+
+/* HEADER BANNER */
+
+.banner{
+
+height:140px;
+
+background:linear-gradient(120deg,#1e3350,#2c4a73);
+
+position:relative;
+
+}
+
+
+/* PROFILE IMAGE */
+
+.profile-img{
+
+position:absolute;
+
+bottom:-55px;
+left:50px;
+
+width:120px;
+height:120px;
+
+border-radius:50%;
+
+border:6px solid white;
+
+object-fit:cover;
+
+transition:.4s;
+
+}
+
+
+.profile-img:hover{
+
+transform:scale(1.08);
+
+}
+
+
+/* HEADER INFO */
+
+.header-info{
+
+margin-left:190px;
+
+padding:25px 40px 10px 40px;
+
+}
+
+
+.company{
+
+font-size:32px;
+
+font-weight:700;
+
+color:#1e3350;
+
+}
+
+
+.subtitle{
+
+color:#777;
+
+margin-top:5px;
+
+font-size:15px;
+
+}
+
+
+/* BODY CONTENT */
+
+.content{
+
+padding:30px 40px 40px 40px;
+
+}
+
+
+/* GRID SECTION */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:22px;
+
+margin-top:20px;
+
+}
+
+
+/* FIELD CARD */
+
+.field{
+
+background:#f6f8fc;
+
+padding:20px;
+
+border-radius:14px;
+
+transition:.3s;
+
+}
+
+
+.field:hover{
+
+transform:translateY(-5px);
+
+box-shadow:0px 12px 25px rgba(0,0,0,.18);
+
+}
+
+
+/* FIELD LABEL */
+
+.label{
+
+font-size:13px;
+
+letter-spacing:.5px;
+
+color:#888;
+
+margin-bottom:6px;
+
+}
+
+
+/* FIELD VALUE */
+
+.value{
+
+font-size:19px;
+
+font-weight:600;
+
+color:#333;
+
+}
+
+
+/* BUTTON ROW */
+
+.buttons{
+
+margin-top:40px;
+
+display:flex;
+
+gap:22px;
+
+}
+
+
+/* COMMON BUTTON */
+
+.btn{
+
+flex:1;
+
+padding:16px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+/* DASHBOARD BUTTON */
+
+.dashboard-btn{
+
+background:#1e3350;
+
+color:white;
+
+}
+
+
+.dashboard-btn:hover{
+
+background:#162742;
+
+transform:scale(1.05);
+
+}
+
+
+/* DELETE BUTTON */
+
+.delete-btn{
+
+background:#e53935;
+
+color:white;
+
+}
+
+
+.delete-btn:hover{
+
+background:#b71c1c;
+
+transform:scale(1.05);
+
+box-shadow:0px 8px 25px rgba(0,0,0,.35);
+
+}
+
+
+/* DELETE CONFIRM EFFECT */
+
+.delete-btn:active{
+
+transform:scale(.96);
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+<!-- HEADER BANNER -->
+
+<div class="banner">
+
+<img
+class="profile-img"
+src="{{ user.profile_image.url }}"
+
+>
+
+</div>
+
+
+<!-- COMPANY NAME -->
+
+<div class="header-info">
+
+<div class="company">
+
+{{ user.company_name }}
+
+</div>
+
+<div class="subtitle">
+
+Registered Inventory Account
+
+</div>
+
+</div>
+
+
+
+<!-- PROFILE DATA -->
+
+<div class="content">
+
+<div class="grid">
+
+
+<div class="field">
+
+<div class="label">
+
+📧 EMAIL ADDRESS
+
+</div>
+
+<div class="value">
+
+{{ user.email }}
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="label">
+
+📱 PHONE NUMBER
+
+</div>
+
+<div class="value">
+
+{{ user.phone }}
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="label">
+
+🌍 COUNTRY
+
+</div>
+
+<div class="value">
+
+{{ user.country }}
+
+</div>
+
+</div>
+
+
+<div class="field">
+
+<div class="label">
+
+📍 STATE
+
+</div>
+
+<div class="value">
+
+{{ user.state }}
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+<!-- BUTTON SECTION -->
+
+<div class="buttons">
+
+
+<button
+class="btn dashboard-btn"onclick="window.location.href='{% url 'dashboard' %}'"
+>
+
+⬅ Back to Dashboard
+
+</button>
+
+
+<button
+class="btn delete-btn"
+onclick="confirmDelete()"
+>
+
+🗑 Delete Account
+
+</button>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function confirmDelete(){
+
+if(confirm("Are you sure you want to permanently delete your account?")){
+
+window.location.href="{% url 'delete_account' %}"
+
+}
+
+}
+
+</script>
+
+
+</body>
+
+</html>

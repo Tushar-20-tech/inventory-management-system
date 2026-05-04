@@ -1,0 +1,515 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+/* PAGE ENTRY */
+
+body{
+margin:0;
+font-family:Segoe UI;
+display:flex;
+background:linear-gradient(120deg,#eef3f9,#f9fbff);
+animation:fadeIn .7s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(18px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:linear-gradient(180deg,#1e3350,#14263f);
+color:white;
+padding:30px 22px;
+position:fixed;
+z-index:100;
+animation:slideSidebar .7s ease;
+}
+
+@keyframes slideSidebar{
+from{transform:translateX(-80px); opacity:0;}
+to{transform:translateX(0); opacity:1;}
+}
+
+.sidebar h2{
+margin-bottom:45px;
+font-size:26px;
+}
+
+
+/* SIDEBAR BUTTONS */
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:14px 18px;
+margin-bottom:14px;
+border-radius:10px;
+transition:.35s;
+}
+
+.sidebar a:hover{
+background:linear-gradient(120deg,#3f6fd9,#1e88e5);
+transform:translateX(8px) scale(1.02);
+box-shadow:0px 6px 18px rgba(0,0,0,.25);
+}
+
+
+/* MAIN AREA */
+
+.main{
+margin-left:260px;
+width:calc(100% - 260px);
+padding:40px 60px;
+animation:fadeContent .9s ease;
+}
+
+@keyframes fadeContent{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+}
+
+
+/* PROFILE CLICKABLE */
+
+.profile{
+display:flex;
+align-items:center;
+gap:12px;
+cursor:pointer;
+padding:8px 12px;
+border-radius:12px;
+transition:.3s ease;
+}
+
+.profile:hover{
+background:#e8f0ff;
+transform:scale(1.05);
+}
+
+.profile img{
+width:48px;
+height:48px;
+border-radius:50%;
+border:2px solid #1e3350;
+transition:.4s ease;
+}
+
+.profile img:hover{
+transform:scale(1.15) rotate(5deg);
+box-shadow:0px 8px 18px rgba(0,0,0,.3);
+}
+
+
+/* KPI GRID */
+
+.kpi-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+margin-bottom:35px;
+}
+
+
+/* KPI CARD */
+
+.kpi-card{
+background:white;
+padding:28px;
+border-radius:18px;
+box-shadow:0px 10px 30px rgba(0,0,0,.08);
+transition:.45s ease;
+animation:kpiFloat .8s ease forwards;
+opacity:0;
+}
+
+.kpi-card:nth-child(1){animation-delay:.2s;}
+.kpi-card:nth-child(2){animation-delay:.4s;}
+.kpi-card:nth-child(3){animation-delay:.6s;}
+
+@keyframes kpiFloat{
+from{opacity:0; transform:translateY(50px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.kpi-card:hover{
+transform:translateY(-12px) scale(1.03);
+box-shadow:0px 20px 55px rgba(0,0,0,.22);
+}
+
+.kpi-title{
+font-size:15px;
+color:#777;
+margin-bottom:8px;
+}
+
+.kpi-value{
+font-size:36px;
+font-weight:bold;
+color:#1e3350;
+transition:.3s ease;
+}
+
+.kpi-card:hover .kpi-value{
+color:#1976d2;
+}
+
+
+/* INFO GRID */
+
+.info-grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:25px;
+margin-bottom:35px;
+}
+
+
+/* LOW STOCK CARD */
+
+.low-stock-card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0px 10px 30px rgba(0,0,0,.08);
+transition:.35s ease;
+}
+
+.low-stock-card:hover{
+transform:scale(1.02);
+box-shadow:0px 15px 45px rgba(0,0,0,.2);
+}
+
+.low-alert{
+background:#ffebee;
+color:#c62828;
+padding:8px 14px;
+border-radius:6px;
+font-weight:bold;
+animation:blink 1s infinite alternate;
+}
+
+@keyframes blink{
+from{opacity:1;}
+to{opacity:.35;}
+}
+
+.safe-stock{
+color:#2e7d32;
+font-weight:bold;
+}
+
+
+/* QUICK CARD */
+
+.quick-card{
+background:linear-gradient(135deg,#ffffff,#f4f8ff);
+border-left:6px solid #1e3350;
+padding:25px;
+border-radius:16px;
+box-shadow:0px 10px 30px rgba(0,0,0,.08);
+transition:.35s ease;
+}
+
+.quick-card:hover{
+transform:scale(1.02);
+box-shadow:0px 15px 45px rgba(0,0,0,.2);
+}
+
+
+/* TABLE CARD */
+
+.table-card{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0px 12px 35px rgba(0,0,0,.08);
+margin-bottom:40px;
+transition:.35s ease;
+}
+
+.table-card:hover{
+transform:translateY(-6px);
+box-shadow:0px 18px 55px rgba(0,0,0,.2);
+}
+
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#1e3350;
+color:white;
+padding:15px;
+text-align:left;
+}
+
+td{
+padding:14px;
+border-bottom:1px solid #eee;
+}
+
+tr:hover{
+background:#e8f0ff;
+}
+
+
+/* CHART CARD */
+
+.chart-card{
+background:white;
+padding:30px;
+border-radius:18px;
+box-shadow:0px 12px 35px rgba(0,0,0,.08);
+animation:chartRise .9s ease;
+}
+
+@keyframes chartRise{
+from{opacity:0; transform:translateY(60px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>📦 Inventory</h2>
+
+<a href="#">Dashboard</a>
+<a href="{% url 'products' %}">Products</a>
+<a href="{% url 'stock_in' %}">Stock In</a>
+<a href="{% url 'stock_out' %}">Stock Out</a>
+<a href="{% url 'reports' %}">Reports</a>
+<a href="{% url 'how_to_use' %}">How to Use</a>
+<a href="{% url 'login' %}">Logout</a>
+
+</div>
+
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+<div class="topbar">
+
+<h1>Dashboard</h1>
+
+
+<!-- CLICKABLE PROFILE -->
+
+<div class="profile"
+onclick="window.location.href='{% url 'profile' %}'">
+
+<img src="{{ user.profile_image.url }}">
+<span>{{ user.company_name }}</span>
+
+</div>
+
+
+</div>
+
+
+
+<!-- KPI CARDS -->
+
+<div class="kpi-grid">
+
+<div class="kpi-card">
+<div class="kpi-title">Total Products</div>
+<div class="kpi-value">{{ total_products }}</div>
+</div>
+
+<div class="kpi-card">
+<div class="kpi-title">Total Stock</div>
+<div class="kpi-value">{{ total_stock }}</div>
+</div>
+
+<div class="kpi-card">
+<div class="kpi-title">Low Stock Items</div>
+<div class="kpi-value">{{ low_stock }}</div>
+</div>
+
+</div>
+
+
+
+<!-- ALERT + QUICK INFO -->
+
+<div class="info-grid">
+
+<div class="low-stock-card">
+
+<h3>Low Stock Alerts</h3>
+
+{% if low_stock_products %}
+
+<div class="low-alert">⚠ Restock Required</div>
+
+<ul>
+
+{% for item in low_stock_products %}
+<li>{{ item.name }} — Only {{ item.quantity }} left</li>
+{% endfor %}
+
+</ul>
+
+{% else %}
+
+<p class="safe-stock">
+All inventory levels healthy ✅
+</p>
+
+{% endif %}
+
+</div>
+
+
+<div class="quick-card">
+
+<h3>Quick Insights</h3>
+
+<p>{{ quick_message }}</p>
+
+</div>
+
+</div>
+
+
+
+<!-- PRODUCT TABLE -->
+
+<div class="table-card">
+
+<h3>Recent Products Overview</h3>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Category</th>
+<th>Qty</th>
+<th>Price</th>
+</tr>
+
+{% for product in products %}
+<tr>
+<td>{{ product.name }}</td>
+<td>{{ product.category }}</td>
+<td>{{ product.quantity }}</td>
+<td>₹ {{ product.price }}</td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="4">No products available</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+
+
+<!-- BAR GRAPH -->
+
+<div class="chart-card">
+
+<h3>📊 Product Quantity Analytics</h3>
+
+<canvas id="productChart"></canvas>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+const labels = {{ product_names|safe }};
+const values = {{ product_quantities|safe }};
+
+const colors = values.map(qty => {
+
+if(qty < 5) return "#e53935";
+else if(qty < 15) return "#fb8c00";
+else return "#43a047";
+
+});
+
+
+new Chart(
+document.getElementById("productChart"),
+{
+type:"bar",
+
+data:{
+labels:labels,
+datasets:[{
+label:"Stock Quantity",
+data:values,
+backgroundColor:colors,
+borderRadius:8
+}]
+},
+
+options:{
+responsive:true,
+
+plugins:{legend:{display:false}},
+
+animation:{
+duration:1800,
+easing:"easeOutElastic"
+},
+
+scales:{
+y:{beginAtZero:true}
+}
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

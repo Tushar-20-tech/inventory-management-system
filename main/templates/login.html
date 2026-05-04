@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Login</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#efefef;
+font-family:Segoe UI;
+animation:fadeIn 1s ease;
+position:relative;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+
+/* HOME BUTTON */
+
+.home-btn{
+
+position:absolute;
+
+top:25px;
+left:30px;
+
+background:#1e3350;
+
+color:white;
+
+padding:10px 22px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-size:15px;
+
+font-weight:600;
+
+letter-spacing:.5px;
+
+transition:.35s;
+
+box-shadow:0px 4px 14px rgba(0,0,0,.25);
+
+animation:slideDown .7s ease;
+
+}
+
+
+/* HOME BUTTON ANIMATION */
+
+@keyframes slideDown{
+
+from{
+transform:translateY(-40px);
+opacity:0;
+}
+
+to{
+transform:translateY(0);
+opacity:1;
+}
+
+}
+
+
+/* HOME BUTTON HOVER EFFECT */
+
+.home-btn:hover{
+
+background:#3b82f6;
+
+transform:translateY(-3px) scale(1.06);
+
+box-shadow:0px 8px 22px rgba(0,0,0,.35);
+
+}
+
+
+
+/* MAIN CONTAINER */
+
+.container{
+width:900px;
+height:520px;
+display:flex;
+background:white;
+border-radius:18px;
+overflow:hidden;
+box-shadow:0px 10px 40px rgba(0,0,0,0.2);
+animation:popUp 1s ease;
+}
+
+@keyframes popUp{
+from{
+transform:scale(.85);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+
+/* LEFT PANEL */
+
+.left{
+width:50%;
+padding:70px;
+position:relative;
+}
+
+
+/* TITLE */
+
+.left h2{
+font-size:32px;
+margin-bottom:10px;
+}
+
+
+/* SUBTITLE */
+
+.subtitle{
+color:#666;
+margin-bottom:20px;
+}
+
+
+/* ERROR BOX */
+
+.error-box{
+
+margin-bottom:20px;
+
+background:#fff5f5;
+
+border-left:5px solid #e53935;
+
+border-radius:10px;
+
+padding:12px 15px;
+
+display:flex;
+align-items:center;
+gap:10px;
+
+animation:shake .4s ease;
+
+}
+
+
+/* SHAKE ANIMATION */
+
+@keyframes shake{
+0%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+50%{transform:translateX(5px);}
+75%{transform:translateX(-5px);}
+100%{transform:translateX(0);}
+}
+
+
+/* MASCOT */
+
+.mascot{
+font-size:28px;
+}
+
+
+/* ERROR TEXT */
+
+.error-text{
+font-size:14px;
+font-weight:600;
+color:#c62828;
+}
+
+
+/* INPUTS */
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:20px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:15px;
+transition:.3s;
+}
+
+input:focus{
+outline:none;
+border-color:#3b82f6;
+box-shadow:0px 0px 5px rgba(59,130,246,.4);
+}
+
+
+/* ERROR INPUT STYLE */
+
+input.error{
+border-color:#e53935;
+background:#fff5f5;
+}
+
+
+/* LOGIN BUTTON */
+
+button{
+width:100%;
+padding:14px;
+background:#3b82f6;
+color:white;
+border:none;
+border-radius:6px;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#2563eb;
+transform:scale(1.03);
+box-shadow:0px 4px 12px rgba(0,0,0,.25);
+}
+
+
+/* SIGNUP LINK */
+
+.signup-text{
+margin-top:25px;
+color:#555;
+}
+
+.signup-text a{
+color:#3b82f6;
+text-decoration:none;
+font-weight:bold;
+}
+
+.signup-text a:hover{
+text-decoration:underline;
+}
+
+
+/* RIGHT IMAGE */
+
+.right{
+width:50%;
+background:url("{% static 'images/inv1.jpg' %}");
+background-size:cover;
+background-position:center;
+animation:slideImage 1.2s ease;
+}
+
+@keyframes slideImage{
+from{
+transform:translateX(80px);
+opacity:0;
+}
+to{
+transform:translateX(0);
+opacity:1;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HOME BUTTON -->
+
+<a href="{% url 'home' %}" class="home-btn">
+
+🏠 Home
+
+</a>
+
+
+
+<div class="container">
+
+<div class="left">
+
+
+{% if error_type == "nouser" %}
+
+<div class="error-box">
+
+<div class="mascot">🐦</div>
+
+<div class="error-text">
+
+No account found! Please sign up first.
+
+</div>
+
+</div>
+
+{% endif %}
+
+
+{% if error_type == "password" %}
+
+<div class="error-box">
+
+<div class="mascot">🧸</div>
+
+<div class="error-text">
+
+Wrong password! Please try again.
+
+</div>
+
+</div>
+
+{% endif %}
+
+
+<h2>Sign in</h2>
+
+<div class="subtitle">
+
+Access your inventory
+
+</div>
+
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input
+type="text"
+name="email"
+placeholder="Enter email"
+required
+class="{% if error_type %}error{% endif %}">
+
+
+<input
+type="password"
+name="password"
+placeholder="Enter password"
+required
+class="{% if error_type %}error{% endif %}">
+
+
+<button>
+
+Login
+
+</button>
+
+</form>
+
+
+<div class="signup-text">
+
+Don't have an account?
+
+<a href="{% url 'signup' %}">
+
+Sign up now
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="right"></div>
+
+</div>
+
+</body>
+
+</html>

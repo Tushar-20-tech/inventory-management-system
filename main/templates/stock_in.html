@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Stock In</title>
+
+<style>
+
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#eef2f7;
+display:flex;
+}
+
+
+/* SIDEBAR */
+
+.sidebar{
+width:260px;
+height:100vh;
+background:#1e3350;
+color:white;
+padding:25px;
+position:fixed;
+}
+
+.sidebar h2{
+margin-bottom:40px;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:14px;
+margin-bottom:10px;
+border-radius:8px;
+transition:.3s;
+}
+
+.sidebar a:hover{
+background:#2c4a73;
+transform:translateX(5px);
+}
+
+
+/* MAIN AREA */
+
+.main{
+margin-left:260px;
+padding:45px 60px;
+width:100%;
+animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+
+/* HEADER ROW */
+
+.header-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+
+/* BACK BUTTON */
+
+.back-btn{
+background:#1e3350;
+color:white;
+padding:10px 18px;
+border-radius:6px;
+text-decoration:none;
+transition:.3s;
+}
+
+.back-btn:hover{
+background:#2c4a73;
+transform:scale(1.05);
+}
+
+
+/* FORM CARD */
+
+.card{
+background:white;
+padding:35px;
+border-radius:18px;
+box-shadow:0px 12px 35px rgba(0,0,0,.08);
+margin-bottom:40px;
+}
+
+
+/* INPUT GRID */
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+
+/* FULL WIDTH FIELD */
+
+.full-width{
+grid-column:span 2;
+}
+
+
+/* INPUTS */
+
+input, select, textarea{
+width:100%;
+padding:12px;
+border-radius:6px;
+border:1px solid #ccc;
+font-size:14px;
+transition:.25s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+outline:none;
+border-color:#1e3350;
+box-shadow:0px 0px 6px rgba(30,51,80,.25);
+}
+
+
+/* BUTTON */
+
+button{
+margin-top:25px;
+padding:14px;
+background:#1e3350;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:8px;
+font-weight:600;
+transition:.3s;
+}
+
+button:hover{
+background:#2c4a73;
+transform:scale(1.04);
+}
+
+
+/* TABLE CARD */
+
+.table-card{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0px 10px 30px rgba(0,0,0,.08);
+}
+
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th{
+background:#1e3350;
+color:white;
+padding:14px;
+text-align:left;
+}
+
+td{
+padding:14px;
+border-bottom:1px solid #eee;
+}
+
+tr:hover td{
+background:#f6f9ff;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h2>📦 Inventory</h2>
+
+<a href="{% url 'dashboard' %}">Dashboard</a>
+<a href="{% url 'products' %}">Products</a>
+<a href="{% url 'stock_in' %}">Stock In</a>
+<a href="{% url 'stock_out' %}">Stock Out</a>
+<a href="{% url 'reports' %}">Reports</a>
+<a href="{% url 'login' %}">Logout</a>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+
+<!-- HEADER -->
+
+<div class="header-row">
+
+<h2>📥 Add Incoming Stock</h2>
+
+<a href="{% url 'dashboard' %}" class="back-btn">
+
+⬅ Back to Dashboard
+
+</a>
+
+</div>
+
+
+
+<!-- FORM CARD -->
+
+<div class="card">
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="form-grid">
+
+
+<select name="product" required>
+
+<option>Select Product</option>
+
+{% for product in products %}
+
+<option value="{{ product.id }}">
+
+{{ product.name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+
+<input
+name="quantity_added"
+placeholder="Quantity Added"
+required>
+
+
+<input
+name="supplier"
+placeholder="Supplier">
+
+
+<input
+name="invoice_number"
+placeholder="Invoice Number">
+
+
+<input
+type="date"
+name="date">
+
+
+<textarea
+name="notes"
+placeholder="Notes"
+class="full-width"></textarea>
+
+
+</div>
+
+
+<button>
+
+Add Stock
+
+</button>
+
+</form>
+
+</div>
+
+
+
+<!-- HISTORY TABLE -->
+
+<div class="table-card">
+
+<h2>📊 Stock Entry History</h2>
+
+<table>
+
+<tr>
+
+<th>Product</th>
+<th>Qty Added</th>
+<th>Supplier</th>
+<th>Invoice</th>
+<th>Date</th>
+
+</tr>
+
+
+{% for entry in stock_history %}
+
+<tr>
+
+<td>{{ entry.product.name }}</td>
+<td>{{ entry.quantity_added }}</td>
+<td>{{ entry.supplier }}</td>
+<td>{{ entry.invoice_number }}</td>
+<td>{{ entry.date }}</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5">
+
+No stock history available
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+
+</div>
+
+
+</body>
+
+</html>

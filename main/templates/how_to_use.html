@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>How to Use Software</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#eef3f9;
+animation:fadeIn .6s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:40px;
+}
+
+
+/* HEADER */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.back-btn{
+background:#1e3350;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+transition:.3s;
+}
+
+.back-btn:hover{
+background:#2c4a73;
+}
+
+
+/* STEP CARD */
+
+.step{
+
+background:white;
+
+border-radius:16px;
+
+padding:30px;
+
+margin-bottom:25px;
+
+display:flex;
+
+gap:25px;
+
+align-items:center;
+
+box-shadow:0px 8px 25px rgba(0,0,0,.08);
+
+transition:.3s;
+
+}
+
+.step:hover{
+transform:translateY(-6px);
+box-shadow:0px 18px 40px rgba(0,0,0,.18);
+}
+
+
+/* IMAGE */
+
+.step img{
+width:220px;
+border-radius:10px;
+}
+
+
+/* TEXT */
+
+.step-content h2{
+margin:0;
+color:#1e3350;
+}
+
+.step-content p{
+margin-top:10px;
+color:#555;
+line-height:1.6;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="header">
+
+<h1>📘 How to Use Inventory Software</h1>
+
+<a href="{% url 'dashboard' %}" class="back-btn">
+⬅ Back to Dashboard
+</a>
+
+</div>
+
+
+<!-- STEP 1 -->
+
+<div class="step">
+
+<img src="{% static 'images/products.png' %}">
+
+<div class="step-content">
+
+<h2>Step 1 — Add Products</h2>
+
+<p>
+
+Go to the <b>Products</b> section and add product name, category, quantity, and price.
+
+This creates your inventory database.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- STEP 2 -->
+
+<div class="step">
+
+<img src="{% static 'images/stockin.png' %}">
+
+<div class="step-content">
+
+<h2>Step 2 — Add Stock (Stock In)</h2>
+
+<p>
+
+Use <b>Stock In</b> to increase inventory quantity when new products arrive from suppliers.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- STEP 3 -->
+
+<div class="step">
+
+<img src="{% static 'images/stockout.png' %}">
+
+<div class="step-content">
+
+<h2>Step 3 — Remove Stock (Stock Out)</h2>
+
+<p>
+
+Use <b>Stock Out</b> when products are sold, transferred, or damaged.
+
+System automatically updates inventory.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- STEP 4 -->
+
+<div class="step">
+
+<img src="{% static 'images/reports.png' %}">
+
+<div class="step-content">
+
+<h2>Step 4 — View Reports</h2>
+
+<p>
+
+Open <b>Reports</b> section to see analytics charts like stock movement, category distribution, and inventory health.
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- STEP 5 -->
+
+<div class="step">
+
+<img src="{% static 'images/profile.png' %}">
+
+<div class="step-content">
+
+<h2>Step 5 — Manage Profile</h2>
+
+<p>
+
+Click your profile at top-right to view or manage account details securely.
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>

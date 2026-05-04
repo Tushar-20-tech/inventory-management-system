@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Registration Successful</title>
+
+<style>
+
+body{
+
+margin:0;
+height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-family:Segoe UI;
+
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+
+overflow:hidden;
+
+}
+
+
+/* CARD */
+
+.card{
+
+background:white;
+
+padding:60px;
+
+border-radius:18px;
+
+text-align:center;
+
+animation:popUp 1s ease;
+
+box-shadow:0px 15px 40px rgba(0,0,0,.3);
+
+}
+
+
+/* POPUP ANIMATION */
+
+@keyframes popUp{
+
+0%{
+
+transform:scale(.3);
+opacity:0;
+
+}
+
+100%{
+
+transform:scale(1);
+opacity:1;
+
+}
+
+}
+
+
+/* SUCCESS ICON */
+
+.checkmark{
+
+font-size:80px;
+
+color:#28a745;
+
+animation:bounce 1s infinite alternate;
+
+}
+
+
+/* ICON BOUNCE */
+
+@keyframes bounce{
+
+from{transform:translateY(0);}
+to{transform:translateY(-12px);}
+
+}
+
+
+/* TITLE */
+
+.title{
+
+font-size:34px;
+
+margin-top:20px;
+
+color:#333;
+
+}
+
+
+/* COMPANY NAME */
+
+.company{
+
+color:#d32f2f;
+
+font-weight:bold;
+
+}
+
+
+/* MESSAGE */
+
+.message{
+
+margin-top:20px;
+
+font-size:18px;
+
+color:#555;
+
+animation:fadeIn 2s ease;
+
+}
+
+
+/* FADE TEXT */
+
+@keyframes fadeIn{
+
+from{opacity:0;}
+to{opacity:1;}
+
+}
+
+
+/* BUTTON */
+
+button{
+
+margin-top:35px;
+
+padding:15px 50px;
+
+background:#d32f2f;
+
+color:white;
+
+border:none;
+
+font-size:18px;
+
+cursor:pointer;
+
+border-radius:8px;
+
+transition:.3s;
+
+}
+
+
+button:hover{
+
+background:#b71c1c;
+
+transform:scale(1.08);
+
+box-shadow:0px 6px 20px rgba(0,0,0,.4);
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+<div class="checkmark">
+
+✅
+
+</div>
+
+
+<div class="title">
+
+Registration Successful!
+
+</div>
+
+
+<div class="message">
+
+Welcome <span class="company">{{ company }}</span> 🎉
+
+<br><br>
+
+Your account has been created successfully.
+
+</div>
+
+
+<button onclick="window.location.href='/'">
+
+Go to Home Page
+
+</button>
+
+
+</div>
+
+
+</body>
+
+</html>

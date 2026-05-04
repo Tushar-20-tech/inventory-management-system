@@ -1,0 +1,409 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Inventory Management System</title>
+
+<style>
+
+/* GLOBAL */
+
+body{
+margin:0;
+font-family:Segoe UI;
+background:#cbb8ad;
+animation:fadeInBody 1s ease-in;
+}
+
+@keyframes fadeInBody{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+
+/* HEADER */
+
+header{
+background:#d9d9d9;
+padding:12px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+animation:slideDown 1s ease;
+}
+
+@keyframes slideDown{
+from{transform:translateY(-50px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
+}
+
+
+/* COLOR BLOCKS */
+
+.logo-section{
+display:flex;
+align-items:center;
+}
+
+.square{
+width:18px;
+height:18px;
+margin-right:5px;
+animation:bounce 2s infinite alternate;
+}
+
+.red{background:red;}
+.green{background:green;}
+.blue{background:blue;}
+.yellow{background:orange;}
+
+@keyframes bounce{
+from{transform:translateY(0);}
+to{transform:translateY(-5px);}
+}
+
+.team{
+margin-left:10px;
+font-weight:bold;
+}
+
+
+/* BUTTONS */
+
+.auth-buttons a{
+text-decoration:none;
+margin-left:12px;
+padding:12px 30px;
+border-radius:10px;
+font-size:15px;
+font-weight:600;
+transition:.4s ease;
+}
+
+
+/* SIGNIN */
+
+.signin{
+background:linear-gradient(45deg,#ff4b2b,#ff416c);
+color:white;
+}
+
+.signin:hover{
+transform:translateY(-5px) scale(1.08);
+box-shadow:0px 10px 26px rgba(0,0,0,.4);
+}
+
+
+/* SIGNUP */
+
+.signup{
+background:linear-gradient(45deg,#1e88e5,#42a5f5);
+color:white;
+}
+
+.signup:hover{
+transform:translateY(-5px) scale(1.08);
+box-shadow:0px 10px 26px rgba(0,0,0,.4);
+}
+
+
+/* HERO */
+
+.hero{
+text-align:center;
+margin-top:110px;
+animation:fadeHero 1.5s ease;
+}
+
+.hero-title{
+text-align:left;
+margin-left:40px;
+font-size:22px;
+font-weight:bold;
+}
+
+.main-heading{
+font-size:56px;
+color:#23395d;
+margin-top:40px;
+line-height:1.3;
+}
+
+.subtext{
+font-size:18px;
+margin-top:25px;
+color:#333;
+}
+
+
+/* CTA BUTTON */
+
+.cta-button{
+display:inline-block;
+margin-top:35px;
+padding:18px 75px;
+background:linear-gradient(45deg,#d32f2f,#ff5252);
+color:white;
+font-size:18px;
+border-radius:12px;
+transition:.4s;
+}
+
+.cta-button:hover{
+transform:translateY(-6px) scale(1.1);
+box-shadow:0px 12px 32px rgba(0,0,0,.45);
+}
+
+
+/* HOW SECTION */
+
+.how-section{
+margin-top:140px;
+padding:80px 140px;
+background:white;
+}
+
+
+/* TITLE */
+
+.section-title{
+text-align:center;
+font-size:42px;
+margin-bottom:120px;
+color:#23395d;
+}
+
+
+/* STEP ROW */
+
+.step-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:90px;
+margin-bottom:150px;
+opacity:0;
+transform:translateY(80px);
+animation:stepReveal 1.4s forwards;
+}
+
+
+/* STAGGERED EFFECT */
+
+.step-row:nth-child(2){animation-delay:.2s;}
+.step-row:nth-child(3){animation-delay:.4s;}
+.step-row:nth-child(4){animation-delay:.6s;}
+.step-row:nth-child(5){animation-delay:.8s;}
+.step-row:nth-child(6){animation-delay:1s;}
+.step-row:nth-child(7){animation-delay:1.2s;}
+.step-row:nth-child(8){animation-delay:1.4s;}
+
+
+@keyframes stepReveal{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+
+/* RIGHT ALIGN */
+
+.step-row.right{
+flex-direction:row-reverse;
+}
+
+
+/* IMAGE STYLE */
+
+.step-row img{
+width:520px;
+border-radius:22px;
+transition:.6s;
+box-shadow:0px 20px 65px rgba(0,0,0,.3);
+}
+
+.step-row img:hover{
+transform:scale(1.08) rotate(.7deg);
+}
+
+
+/* TEXT STYLE */
+
+.step-text{
+width:460px;
+}
+
+.step-text h3{
+font-size:32px;
+margin-bottom:18px;
+color:#1e3350;
+}
+
+.step-text p{
+font-size:19px;
+line-height:1.7;
+color:#444;
+}
+
+
+/* FOOTER */
+
+footer{
+margin-top:100px;
+background:#23395d;
+color:white;
+text-align:center;
+padding:22px;
+font-size:16px;
+letter-spacing:.5px;
+}
+
+footer span{
+color:#ffd54f;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+<div class="logo-section">
+
+<div class="square red"></div>
+<div class="square green"></div>
+<div class="square blue"></div>
+<div class="square yellow"></div>
+
+<div class="team">
+Prasad → Shashank → Swasthik → Manish
+</div>
+
+</div>
+
+
+<div class="auth-buttons">
+
+<a href="{% url 'login' %}" class="signin">Sign In</a>
+
+<a href="{% url 'signup' %}" class="signup">Sign Up Now</a>
+
+</div>
+
+</header>
+
+
+
+<div class="hero">
+
+<div class="hero-title">🛒 Inventory Management System</div>
+
+<div class="main-heading">
+Inventory management software designed <br>
+for Indian businesses
+</div>
+
+<div class="subtext">
+Manage orders. Track inventory. Oversee warehouses.
+</div>
+
+<a href="{% url 'signup' %}" class="cta-button">
+SIGN UP — IT'S FREE
+</a>
+
+</div>
+
+
+
+<div class="how-section">
+
+<h2 class="section-title">🚀 How To Use This Software</h2>
+
+
+<div class="step-row">
+<img src="{% static 'images/register.png' %}">
+<div class="step-text">
+<h3>Step 1 — Register Account</h3>
+<p>Create your secure company account to begin managing inventory efficiently.</p>
+</div>
+</div>
+
+
+<div class="step-row right">
+<img src="{% static 'images/login.png' %}">
+<div class="step-text">
+<h3>Step 2 — Login Dashboard</h3>
+<p>Access your personalized dashboard with real-time inventory statistics.</p>
+</div>
+</div>
+
+
+<div class="step-row">
+<img src="{% static 'images/products.png' %}">
+<div class="step-text">
+<h3>Step 3 — Add Products</h3>
+<p>Add categories, pricing, and stock quantity for each product.</p>
+</div>
+</div>
+
+
+<div class="step-row right">
+<img src="{% static 'images/stockin.png' %}">
+<div class="step-text">
+<h3>Step 4 — Stock In</h3>
+<p>Record supplier inventory additions instantly.</p>
+</div>
+</div>
+
+
+<div class="step-row">
+<img src="{% static 'images/stockout.png' %}">
+<div class="step-text">
+<h3>Step 5 — Stock Out</h3>
+<p>Track outgoing stock safely with validation protection.</p>
+</div>
+</div>
+
+
+<div class="step-row right">
+<img src="{% static 'images/reports.png' %}">
+<div class="step-text">
+<h3>Step 6 — Reports Analytics</h3>
+<p>Monitor inventory insights using smart visual analytics.</p>
+</div>
+</div>
+
+
+<div class="step-row">
+<img src="{% static 'images/profile.png' %}">
+<div class="step-text">
+<h3>Step 7 — Profile Management</h3>
+<p>Manage company settings and workspace profile easily.</p>
+</div>
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+© <span>Prasad</span> ·
+<span>Shashank</span> ·
+<span>Manish</span> ·
+<span>Swasthik</span> — 2026
+
+</footer>
+
+
+</body>
+
+</html>
